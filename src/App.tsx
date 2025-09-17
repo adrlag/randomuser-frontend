@@ -22,6 +22,7 @@ function App() {
   const [originalUsers, setOriginalUsers] = useState<User[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=100")
@@ -42,7 +43,12 @@ function App() {
 
   const handleRestore = () => {
     setUsers(originalUsers);
+    setFilter("");
   };
+
+  const filteredUsers = users.filter((user) =>
+    user.location.country.toLowerCase().includes(filter.toLowerCase())
+  );
 
 
 
@@ -51,10 +57,18 @@ function App() {
   return (
     <div>
       <h1>Lista de Usuarios</h1>
-      <button onClick={handleRestore}>
-        Restaurar lista de usuarios inicial
-      </button>
-      <br /><br />
+      <div>
+        <input
+          type="text"
+          placeholder="Filtrar por país..."
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+        <button onClick={handleRestore}>
+          Restaurar lista de usuarios inicial
+        </button>
+      </div>
+      <br />
       <table border={1} cellPadding={5} cellSpacing={0}>
         <thead>
           <tr>
@@ -67,7 +81,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {filteredUsers.map((user, index) => (
             <tr key={index}>
               <td>
                 <img src={user.picture.thumbnail} alt="foto" />
@@ -83,6 +97,13 @@ function App() {
               </td>
             </tr>
           ))}
+          {filteredUsers.length === 0 && (
+            <tr>
+              <td colSpan={6}>
+                No se han encontrado usuarios para ese país.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
