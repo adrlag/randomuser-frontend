@@ -19,6 +19,7 @@ interface User {
 }
 
 function App() {
+  const [originalUsers, setOriginalUsers] = useState<User[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +28,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.results);
+        setOriginalUsers(data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -38,11 +40,21 @@ function App() {
     setUsers((prevUsers) => prevUsers.filter((user) => user.login.uuid !== id));
   };
 
+  const handleRestore = () => {
+    setUsers(originalUsers);
+  };
+
+
+
   if (loading) return <p>Cargando usuarios...</p>;
 
   return (
     <div>
       <h1>Lista de Usuarios</h1>
+      <button onClick={handleRestore}>
+        Restaurar lista de usuarios inicial
+      </button>
+      <br /><br />
       <table border={1} cellPadding={5} cellSpacing={0}>
         <thead>
           <tr>
