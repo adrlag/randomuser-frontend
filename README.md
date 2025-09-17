@@ -1,69 +1,70 @@
-# React + TypeScript + Vite
+# Prueba técnica frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una prueba técnica para evaluar conocimientos en **Vite + React + TypeScript**.  
+El objetivo es consumir datos desde la [randomuser.me](https://randomuser.me/), mostrarlos en una tabla y añadir funcionalidades básicas como la eliminación el filtrado y restauración original de los datos.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos
 
-## Expanding the ESLint configuration
+- Node.js **22 (LTS)** o superior
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalación y ejecución
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Clonar el repositorio e instalar dependencias:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/adrlag/randomuser-frontend.git
+cd randomuser-frontend
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Ejecutar en modo desarrollo:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+La aplicación se abrirá en [http://localhost:5173](http://localhost:5173).
+
+---
+
+## Funcionalidades implementadas
+
+- **Obtener datos**: se recuperan 100 registros desde la API [randomuser.me](https://randomuser.me/).  
+- **Mostrar datos en formato tabla**: cada fila incluye foto, nombre, email, país y teléfono.  
+- **Eliminar filas**: se puede eliminar un usuario de la tabla.  
+- **Restaurar estado inicial**: permite recuperar todos los usuarios eliminados sin volver a llamar a la API.  
+- **Filtrar por país**: input de búsqueda que filtra usuarios en tiempo real según el país.  
+
+---
+
+## Tecnologías utilizadas
+
+- [React](https://react.dev/)  
+- [Vite](https://vitejs.dev/)  
+- [TypeScript](https://www.typescriptlang.org/)  
+
+---
+
+## Convenciones de commits
+
+Este proyecto sigue [Conventional Commits](https://www.conventionalcommits.org/).
+  
+Commits:  
+- `chore(init): crear proyecto con Vite + React + TS`
+- `feat(api): recuperar y mostrar 100 usuarios en una tabla`
+- `feat(ui): permitir la eliminar usuarios de la tabla`
+- `feat(state): restaurar la lista original de usuarios`
+- `feat(filter): filtrar usuarios por país`
+- `docs(readme): añadir instrucciones de instalación y uso`
+
+---
+
+## Autor
+
+- Adrián Lage Gil ([@adrlag](https://github.com/adrlag))
+
+---
