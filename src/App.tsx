@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 interface User {
+  login: {
+    uuid: string;
+  };
   name: {
     first: string;
     last: string;
@@ -31,6 +34,10 @@ function App() {
       });
   }, []);
 
+  const handleDelete = (id: string) => {
+    setUsers((prevUsers) => prevUsers.filter((user) => user.login.uuid !== id));
+  };
+
   if (loading) return <p>Cargando usuarios...</p>;
 
   return (
@@ -44,6 +51,7 @@ function App() {
             <th>Email</th>
             <th>País</th>
             <th>Teléfono</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -56,6 +64,11 @@ function App() {
               <td>{user.email}</td>
               <td>{user.location.country}</td>
               <td>{user.phone}</td>
+              <td>
+                <button onClick={() => handleDelete(user.login.uuid)}>
+                  Eliminar
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
